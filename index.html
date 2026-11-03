@@ -1,0 +1,955 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Perfil de Abordagem Psicológica</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap">
+
+<style>
+:root {
+  --bg: #F7F6F3; --fg: #1C2128; --surface: #FFFFFF; --surface-2: #EEECE9;
+  --accent: #3B4FC0; --accent-light: #EEF0FA; --accent-warm: #B87333;
+  --muted: #6B7280; --border: #E2E0DC;
+  --radius: 12px; --radius-sm: 8px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12161F; --fg: #E5E8F0; --surface: #1A1F2E; --surface-2: #21273A;
+    --accent: #6B7FE0; --accent-light: #1E2440; --accent-warm: #D4956A;
+    --muted: #8B93A8; --border: #2A3045; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12161F; --fg: #E5E8F0; --surface: #1A1F2E; --surface-2: #21273A;
+  --accent: #6B7FE0; --accent-light: #1E2440; --accent-warm: #D4956A;
+  --muted: #8B93A8; --border: #2A3045; color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 16px; line-height: 1.65; min-height: 100%;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px;
+}
+.container { max-width: 700px; margin: 0 auto; }
+
+.quiz-header { text-align: center; margin-bottom: 36px; }
+.quiz-header .eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+}
+.quiz-header h1 {
+  font-family: 'Cormorant Garant', Georgia, serif;
+  font-size: clamp(1.9rem, 5vw, 2.9rem);
+  font-weight: 600; line-height: 1.2; text-wrap: balance;
+}
+
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* Intro */
+.intro-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 40px;
+}
+.intro-card p { font-size: 1.05rem; margin-bottom: 16px; max-width: 60ch; }
+.intro-note { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.chip {
+  font-size: 0.77rem; font-weight: 600; padding: 5px 13px;
+  border-radius: 20px; background: var(--accent-light); color: var(--accent);
+}
+
+/* Progress */
+.progress-wrap { margin-bottom: 24px; }
+.progress-meta {
+  display: flex; justify-content: space-between;
+  font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 8px;
+}
+.progress-track { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s ease; }
+
+/* Phase badge */
+.phase-badge {
+  display: inline-block; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  background: var(--accent-light); color: var(--accent);
+  border-radius: 20px; padding: 3px 10px; margin-bottom: 10px;
+}
+
+/* Question */
+.question-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 34px 40px;
+}
+.q-num {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+}
+.q-text {
+  font-family: 'Cormorant Garant', Georgia, serif;
+  font-size: clamp(1.08rem, 2.5vw, 1.32rem);
+  font-weight: 400; line-height: 1.5; margin-bottom: 24px; text-wrap: balance;
+}
+.options-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.options-list li { display: contents; }
+.opt-btn {
+  display: flex; align-items: flex-start; gap: 11px; width: 100%; text-align: left;
+  background: var(--bg); border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); padding: 11px 14px;
+  font-family: 'Source Sans 3', sans-serif; font-size: 0.89rem;
+  color: var(--fg); cursor: pointer; transition: border-color 0.15s, background 0.15s;
+}
+.opt-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+.opt-btn.selected { border-color: var(--accent); background: var(--accent-light); }
+.opt-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.opt-letter {
+  flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--border); color: var(--muted);
+  font-size: 0.64rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  text-transform: uppercase; margin-top: 2px;
+  transition: background 0.15s, color 0.15s;
+}
+.opt-btn.selected .opt-letter { background: var(--accent); color: #fff; }
+
+/* Nav */
+.nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+.btn {
+  font-family: 'Source Sans 3', sans-serif; font-size: 0.88rem; font-weight: 600;
+  padding: 11px 22px; border-radius: var(--radius-sm); border: none;
+  cursor: pointer; transition: opacity 0.15s, transform 0.1s;
+}
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.38; cursor: not-allowed; pointer-events: none; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover:not(:disabled) { opacity: 0.88; }
+.btn-ghost { background: transparent; color: var(--muted); border: 1.5px solid var(--border); }
+.btn-ghost:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.btn-lg { font-size: 1rem; padding: 14px 30px; }
+
+/* Result */
+.result-hero {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 40px; margin-bottom: 20px;
+}
+.res-label {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+}
+.res-name {
+  font-family: 'Cormorant Garant', Georgia, serif;
+  font-size: clamp(1.6rem, 5vw, 2.5rem);
+  font-weight: 600; line-height: 1.15; margin-bottom: 22px; text-wrap: balance;
+}
+.res-desc { font-size: 1.02rem; line-height: 1.75; max-width: 64ch; margin-bottom: 24px; }
+.res-ref-block {
+  border-top: 1px solid var(--border); padding-top: 20px;
+}
+.res-ref-label {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+}
+.res-ref-row { display: flex; flex-direction: column; gap: 4px; }
+.res-ref-row span { font-size: 0.86rem; color: var(--muted); }
+.res-ref-row strong { color: var(--fg); font-weight: 600; }
+
+/* Scores */
+.scores-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 30px 40px; margin-bottom: 20px;
+}
+.scores-card h2 {
+  font-family: 'Cormorant Garant', Georgia, serif;
+  font-size: 1.3rem; font-weight: 600; margin-bottom: 22px;
+}
+.score-bars { display: flex; flex-direction: column; gap: 13px; }
+.score-row {
+  display: grid;
+  grid-template-columns: minmax(0, max-content) 1fr 38px;
+  align-items: center; gap: 12px;
+}
+.sc-label {
+  font-size: 0.79rem; font-weight: 600; line-height: 1.25;
+  color: var(--fg); white-space: nowrap;
+  max-width: 172px; overflow: hidden; text-overflow: ellipsis;
+}
+.sc-track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; min-width: 40px; }
+.sc-fill { height: 100%; border-radius: 3px; transition: width 0.85s cubic-bezier(0.4,0,0.2,1); }
+.sc-fill.rank-0 { background: var(--accent); }
+.sc-fill.rank-1 { background: var(--accent-warm); }
+.sc-fill.rank-2,
+.sc-fill.rank-3,
+.sc-fill.rank-4 { background: var(--muted); opacity: 0.5; }
+.sc-pct { font-size: 0.77rem; font-variant-numeric: tabular-nums; color: var(--muted); text-align: right; }
+
+.disclaimer {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 18px 22px;
+  font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin-bottom: 24px;
+}
+
+@media (max-width: 520px) {
+  .intro-card, .question-card, .result-hero, .scores-card { padding: 22px 18px; }
+  .sc-label { font-size: 0.72rem; max-width: 118px; }
+  .score-row { gap: 8px; }
+}
+</style>
+
+<script>
+// ─── DADOS: FASE 1 ──────────────────────────────────────────────────────────
+// Ordem dos grupos por questão (distribuição balanceada de posições):
+// Q1: P C H S | Q2: C H S P | Q3: H S P C | Q4: S P C H
+// Q5: P H S C | Q6: C P H S | Q7: H C S P | Q8: S H P C
+// Q9: P S C H | Q10: C S H P
+
+const PHASE1_Q = [
+  {
+    q: "Quando você pensa no que está por trás de um comportamento que uma pessoa não consegue mudar sozinha, a explicação que mais faz sentido pra você é:",
+    opts: [
+      { key:'P', text:"Existe algo que ela ainda não compreendeu sobre si mesma — algo que ficou no passado e continua operando sem que ela perceba." },
+      { key:'C', text:"Esse comportamento foi aprendido e se mantém porque, de alguma forma, ainda funciona para ela." },
+      { key:'H', text:"Ela ainda não encontrou um espaço onde se sinta livre o suficiente para se ouvir de verdade." },
+      { key:'S', text:"O contexto de vida dela — família, trabalho, condição social — não dá suporte para que ela mude." }
+    ]
+  },
+  {
+    q: "Imagine que você está ouvindo alguém falar sobre um problema. O que instintivamente te chama mais atenção?",
+    opts: [
+      { key:'C', text:"As situações concretas em que o problema aparece — quando, onde, com quem." },
+      { key:'H', text:"A forma como ela se sente em relação a si mesma enquanto fala." },
+      { key:'S', text:"O quanto as circunstâncias da vida dela contribuem para o que está acontecendo." },
+      { key:'P', text:"As contradições — o que ela diz que quer e o que ela de fato faz." }
+    ]
+  },
+  {
+    q: "Para você, o que mais importa no espaço terapêutico?",
+    opts: [
+      { key:'H', text:"Que a pessoa se sinta genuinamente aceita — sem precisar se explicar ou se justificar." },
+      { key:'S', text:"Que a pessoa entenda como sua história e seu contexto moldaram quem ela é." },
+      { key:'P', text:"Que a pessoa tenha tempo e segurança para explorar o que está além do que ela consegue ver claramente." },
+      { key:'C', text:"Que haja objetivos concretos e que os avanços possam ser observados." }
+    ]
+  },
+  {
+    q: "Quando alguém passa por uma crise sem conseguir explicar por quê, o que você tende a pensar?",
+    opts: [
+      { key:'S', text:"A crise faz sentido quando você olha para o que está acontecendo com ela lá fora — no trabalho, na família, na sociedade." },
+      { key:'P', text:"Há algo antigo que voltou à superfície — alguma ferida que nunca foi realmente elaborada." },
+      { key:'C', text:"Alguma coisa no ambiente atual disparou isso — vale investigar o que mudou recentemente." },
+      { key:'H', text:"A pessoa provavelmente está desconectada do que sente de verdade sobre a própria vida." }
+    ]
+  },
+  {
+    q: "Você acredita que os sonhos, as imagens e os símbolos que aparecem na mente de uma pessoa:",
+    opts: [
+      { key:'P', text:"Dizem algo importante sobre ela — mesmo que ela ainda não saiba decodificar." },
+      { key:'H', text:"Podem revelar muito sobre como ela experimenta a própria existência." },
+      { key:'S', text:"Refletem as experiências concretas que ela viveu — o mundo interno não se separa do mundo externo." },
+      { key:'C', text:"São produtos da mente como qualquer outro — o que importa é o comportamento real, no dia a dia." }
+    ]
+  },
+  {
+    q: "Se você pudesse escolher como ajudar alguém a crescer psicologicamente, priorizaria:",
+    opts: [
+      { key:'C', text:"Ensiná-la habilidades concretas para lidar melhor com as situações que a desafiam." },
+      { key:'P', text:"Ajudá-la a entender por que ela se relaciona com o mundo da forma que se relaciona." },
+      { key:'H', text:"Criar um espaço onde ela possa se descobrir no próprio ritmo, sem direcionamento externo." },
+      { key:'S', text:"Ampliar a consciência dela sobre o quanto o contexto social e histórico moldou sua forma de ser." }
+    ]
+  },
+  {
+    q: "Quando você pensa em mudança psicológica real, o que te parece mais verdadeiro?",
+    opts: [
+      { key:'H', text:"Ela emerge quando a pessoa se permite ser quem realmente é — sem máscaras ou expectativas externas." },
+      { key:'C', text:"Ela acontece quando novos comportamentos são praticados e se tornam mais naturais do que os antigos." },
+      { key:'S', text:"Ela depende de transformações reais nas condições de vida — não só de insight individual." },
+      { key:'P', text:"Ela começa quando a pessoa toma consciência de algo que estava escondido dela mesma." }
+    ]
+  },
+  {
+    q: "Você está conversando com alguém que se sente preso em padrões que se repetem — os mesmos tipos de conflito, as mesmas decepções. O que mais te interessa explorar?",
+    opts: [
+      { key:'S', text:"Se as condições objetivas da vida dela estão contribuindo para que isso se mantenha." },
+      { key:'H', text:"Como ela se sente dentro desse padrão — e se ela mesma percebe o que está repetindo." },
+      { key:'P', text:"De onde vem esse padrão — o que na história dela o originou e o que continua alimentando." },
+      { key:'C', text:"O que, exatamente, dispara esse ciclo — e o que ela poderia fazer de diferente da próxima vez." }
+    ]
+  },
+  {
+    q: "Para você, qual é o papel do terapeuta na relação com o cliente?",
+    opts: [
+      { key:'P', text:"Ser uma presença constante e confiável — um ponto de referência enquanto o cliente navega pelo que não entende em si mesmo." },
+      { key:'S', text:"Ajudar o cliente a se ver dentro de uma história maior — e a entender que seus conflitos têm raízes que vão além dele." },
+      { key:'C', text:"Ser um parceiro técnico — alguém que ajuda o cliente a identificar problemas e construir soluções práticas." },
+      { key:'H', text:"Estar presente de verdade — não como especialista, mas como alguém que acompanha sem julgamento." }
+    ]
+  },
+  {
+    q: "Se você tivesse que resumir em uma frase o que move uma pessoa a buscar ajuda psicológica, escolheria:",
+    opts: [
+      { key:'C', text:"\"Ela quer parar de agir de formas que a prejudicam — e ainda não sabe como.\"" },
+      { key:'S', text:"\"Ela está tentando sobreviver em condições que não foram feitas para ela prosperar.\"" },
+      { key:'H', text:"\"Ela perdeu o contato com o que realmente sente e com quem realmente é.\"" },
+      { key:'P', text:"\"Ela carrega algo que não sabe nomear — e que pesa mais do que ela consegue suportar sozinha.\"" }
+    ]
+  }
+];
+
+// ─── QUESTÃO DESEMPATADORA ───────────────────────────────────────────────────
+const TIEBREAKER_Q = {
+  q: "Para encerrar esta etapa: se você imaginasse acompanhar um cliente ao longo de meses, o que te daria mais satisfação ao fim do processo?",
+  opts: [
+    { key:'H', text:"Ver que o cliente se tornou mais ele mesmo — mais congruente, mais presente, mais livre para ser quem é." },
+    { key:'P', text:"Ver que o cliente compreendeu por que se relacionava com o mundo da forma que se relacionava — e que isso mudou algo nele." },
+    { key:'S', text:"Ver que o cliente passou a se enxergar dentro de uma história maior — e que essa consciência ampliou o que ele podia fazer pela própria vida." },
+    { key:'C', text:"Ver que o cliente desenvolveu habilidades concretas que o tornaram mais capaz de lidar com as situações que o desafiavam." }
+  ]
+};
+
+// ─── DADOS: FASE 2 ───────────────────────────────────────────────────────────
+const PHASE2_BRANCHES = {
+  P: {
+    label: "Psicodinâmica",
+    approaches: ['PS','JUN'],
+    questions: [
+      {
+        q: "Quando você pensa no inconsciente, qual imagem ressoa mais com você?",
+        opts: [
+          { key:'JUN', text:"Um vasto território que vai além da história pessoal — compartilhado com toda a humanidade, que fala através de mitos, sonhos e imagens universais." },
+          { key:'PS',  text:"Um reservatório de conteúdos reprimidos — desejos, medos e experiências mantidos fora da consciência porque causavam conflito." }
+        ]
+      },
+      {
+        q: "O que você acha mais revelador na vida de uma pessoa?",
+        opts: [
+          { key:'PS',  text:"Os conflitos da infância — especialmente as relações com as figuras parentais, que continuam operando silenciosamente no presente." },
+          { key:'JUN', text:"As imagens que surgem repetidamente — sonhos, fascínios, temas que se repetem como se fossem parte de uma narrativa maior." }
+        ]
+      },
+      {
+        q: "Como você imagina a terapia no longo prazo?",
+        opts: [
+          { key:'JUN', text:"Um processo de individuação — acompanhar alguém em direção a uma versão mais inteira de si mesmo, integrando o que foi rejeitado ou desconhecido." },
+          { key:'PS',  text:"Um processo de elaboração — tornar consciente o que estava reprimido e trabalhar o conflito que estava na raiz do sofrimento." }
+        ]
+      },
+      {
+        q: "Qual perspectiva sobre os sonhos faz mais sentido para você?",
+        opts: [
+          { key:'PS',  text:"Os sonhos revelam desejos reprimidos e conflitos não resolvidos — são a via régia para o inconsciente pessoal." },
+          { key:'JUN', text:"Os sonhos falam a linguagem dos símbolos — e muitas vezes carregam imagens que transcendem a história pessoal do sonhador." }
+        ]
+      },
+      {
+        q: "O que te atrai mais no trabalho com o cliente?",
+        opts: [
+          { key:'JUN', text:"A dimensão simbólica da experiência — entender o que os sonhos, os fascínios e as imagens recorrentes dizem sobre quem a pessoa está se tornando." },
+          { key:'PS',  text:"A relação transferencial — o modo como o cliente revive com o terapeuta padrões emocionais antigos, e o que isso revela sobre sua história." }
+        ]
+      }
+    ]
+  },
+  C: {
+    label: "Comportamental",
+    approaches: ['TCC','ACO'],
+    questions: [
+      {
+        q: "Quando alguém mantém um comportamento que a prejudica, o que você acha mais importante investigar?",
+        opts: [
+          { key:'TCC', text:"Os pensamentos e crenças por trás desse comportamento — o que a pessoa interpreta e acredita sobre si mesma e o mundo." },
+          { key:'ACO', text:"As consequências que esse comportamento produz — o que acontece depois que ele ocorre e por que continua sendo emitido." }
+        ]
+      },
+      {
+        q: "Como você tende a ver pensamentos e emoções no contexto terapêutico?",
+        opts: [
+          { key:'ACO', text:"Como comportamentos como quaisquer outros — sujeitos às mesmas leis de aprendizagem que regulam qualquer resposta ao ambiente." },
+          { key:'TCC', text:"Como elementos centrais da mudança — é preciso trabalhar com o que a pessoa pensa e sente para que o comportamento mude de forma consistente." }
+        ]
+      },
+      {
+        q: "O que mais te interessa no trabalho clínico?",
+        opts: [
+          { key:'TCC', text:"Identificar padrões de pensamento disfuncional e ajudar o cliente a construir interpretações mais realistas e funcionais das situações." },
+          { key:'ACO', text:"Mapear as condições ambientais que antecedem e seguem o comportamento-problema — e modificar essas condições." }
+        ]
+      },
+      {
+        q: "Como você vê o papel das crenças no sofrimento psicológico?",
+        opts: [
+          { key:'ACO', text:"São comportamentos verbais — têm função no repertório da pessoa, mas não precisam ser tratados como causas internas separadas do comportamento observável." },
+          { key:'TCC', text:"São centrais — o modo como a pessoa interpreta as situações determina em grande parte como ela se sente e como age." }
+        ]
+      },
+      {
+        q: "Quando você pensa em ajudar alguém a lidar com ansiedade, o que faz mais sentido?",
+        opts: [
+          { key:'TCC', text:"Trabalhar as interpretações catastróficas — ajudar a pessoa a questionar os pensamentos que alimentam e mantêm a ansiedade." },
+          { key:'ACO', text:"Analisar em que situações a ansiedade aparece, o que a mantém, e expor gradualmente a pessoa às situações que ela evita." }
+        ]
+      }
+    ]
+  },
+  H: {
+    label: "Humanista-Existencial",
+    approaches: ['GES','ACP','FEN'],
+    questions: [
+      {
+        q: "O que mais te chama atenção durante uma sessão?",
+        opts: [
+          { key:'ACP', text:"A qualidade do que está sendo comunicado — se a pessoa está sendo ouvida com empatia real, sem avaliação nem julgamento." },
+          { key:'FEN', text:"O que a experiência significa para essa pessoa — como ela está existindo naquele momento, diante do que a vida lhe apresenta." },
+          { key:'GES', text:"O que está acontecendo no corpo, na voz, no gesto — as pistas do que a pessoa está evitando ou não conseguindo completar." }
+        ]
+      },
+      {
+        q: "Para você, o que está na raiz de grande parte do sofrimento humano?",
+        opts: [
+          { key:'GES', text:"Interrupções no contato — formas de evitar a experiência plena do que está acontecendo aqui e agora." },
+          { key:'FEN', text:"O peso das escolhas que precisam ser feitas — e a dificuldade de assumir a responsabilidade pela própria existência." },
+          { key:'ACP', text:"A distância entre quem a pessoa é de verdade e quem ela aprendeu que deveria ser para ser amada." }
+        ]
+      },
+      {
+        q: "Como você vê o papel da técnica na psicoterapia?",
+        opts: [
+          { key:'FEN', text:"A técnica não basta — é preciso uma atitude filosófica diante da existência do outro, não um método aplicado." },
+          { key:'ACP', text:"A técnica é secundária — o que cura é a qualidade da relação: empatia genuína, congruência e aceitação incondicional." },
+          { key:'GES', text:"A técnica tem valor — experimentos e exercícios ajudam a pessoa a entrar em contato com o que evita sentir ou fazer." }
+        ]
+      },
+      {
+        q: "Qual imagem do ser humano ressoa mais com você?",
+        opts: [
+          { key:'ACP', text:"Uma pessoa com uma tendência natural ao crescimento — que floresce quando encontra as condições certas de aceitação." },
+          { key:'GES', text:"Uma pessoa em constante processo de contato e retirada com o mundo — buscando completar o que ficou inacabado." },
+          { key:'FEN', text:"Uma pessoa lançada no mundo, livre e responsável — confrontada com questões que não têm resposta fácil." }
+        ]
+      },
+      {
+        q: "No trabalho terapêutico, o que te parece mais importante para o cliente?",
+        opts: [
+          { key:'GES', text:"Ampliar a consciência do que está acontecendo com ele — no corpo, nas emoções, nas relações." },
+          { key:'ACP', text:"Sentir que pode ser quem é, sem precisar se adaptar às expectativas do terapeuta ou de qualquer outra pessoa." },
+          { key:'FEN', text:"Encontrar sentido — mesmo diante do sofrimento, da finitude, da incerteza." }
+        ]
+      },
+      {
+        q: "Quando você imagina uma sessão que realmente funcionou, o que você vê?",
+        opts: [
+          { key:'FEN', text:"Um momento em que o cliente olhou para a própria vida com mais honestidade — e se aproximou de uma escolha mais autêntica." },
+          { key:'GES', text:"Um momento de contato genuíno — em que algo que estava bloqueado se moveu, se expressou ou se completou." },
+          { key:'ACP', text:"Um momento em que o cliente se ouviu — e se sentiu inteiramente compreendido por outra pessoa." }
+        ]
+      },
+      {
+        q: "O que você acha mais relevante levar para a relação terapêutica?",
+        opts: [
+          { key:'GES', text:"Atenção ao momento presente — ao que está vivo e se movendo agora na sessão, não ao que foi ou ao que vai ser." },
+          { key:'FEN', text:"Uma postura de abertura filosófica — estar disposto a questionar junto com o cliente o que significa existir." },
+          { key:'ACP', text:"Presença genuína — ser real, aceitar incondicionalmente, compreender sem filtros." }
+        ]
+      },
+      {
+        q: "Como você enxerga a ansiedade?",
+        opts: [
+          { key:'ACP', text:"Como consequência da incongruência — a tensão entre o que a pessoa é e o que acredita que deve ser para ser aceita." },
+          { key:'GES', text:"Como sinal de interrupção — algo que a pessoa está evitando sentir, dizer ou fazer." },
+          { key:'FEN', text:"Como condição humana — a resposta natural diante da liberdade, da responsabilidade e da finitude." }
+        ]
+      }
+    ]
+  }
+  // S (PHC) não tem Fase 2 — resultado direto após Fase 1
+};
+
+// ─── RESULTADOS ──────────────────────────────────────────────────────────────
+const RESULTS = {
+  PS: {
+    name: 'Psicanálise',
+    desc: 'Você é alguém que acredita que o que não é dito ainda assim fala, e que o passado, mesmo quando esquecido, continua vivo no presente. Você tem um interesse natural pelo que está por baixo: os conflitos não resolvidos, os padrões que se repetem, as contradições entre o que a pessoa diz querer e o que de fato faz. A escuta para você não é só acolhimento — é um instrumento de decifração. Você se sente em casa com a complexidade, com o tempo longo, com a profundidade.',
+    authors: 'Sigmund Freud · Donald Winnicott',
+    books: [
+      { title: 'Cinco Lições de Psicanálise', author: 'Freud' },
+      { title: 'O Ambiente e os Processos de Maturação', author: 'Winnicott' }
+    ]
+  },
+  JUN: {
+    name: 'Psicologia Analítica',
+    desc: 'Você é alguém fascinado pela profundidade simbólica da experiência humana — pelos sonhos, pelas imagens que habitam a imaginação, pelos temas que se repetem na vida de uma pessoa como se fossem parte de uma narrativa maior. Você acredita que cada pessoa carrega algo que vai além da sua história individual, uma herança humana que fala em mitos, símbolos e arquétipos. O que te move não é apenas aliviar sintomas, mas acompanhar alguém em um processo de tornar-se quem realmente é.',
+    authors: 'Carl Gustav Jung · Marie-Louise von Franz',
+    books: [
+      { title: 'O Homem e seus Símbolos', author: 'Jung' },
+      { title: 'A Individuação nos Contos de Fada', author: 'von Franz' }
+    ]
+  },
+  TCC: {
+    name: 'Terapia Cognitivo-Comportamental',
+    desc: 'Você é alguém que acredita no poder de nomear — de identificar exatamente o que está acontecendo, colocar em palavras e construir uma saída. Você valoriza clareza, objetivos concretos e a capacidade de ensinar ao outro ferramentas que ele vai poder usar. Para você, entender como a pessoa interpreta as situações é tão importante quanto o que ela sente. Você tende a gostar de estrutura, de progresso observável e de uma relação terapêutica colaborativa.',
+    authors: 'Aaron Beck · Judith Beck',
+    books: [
+      { title: 'Terapia Cognitivo-Comportamental: teoria e prática', author: 'J. Beck' },
+      { title: 'TCC na Prática Clínica', author: 'Knapp' }
+    ]
+  },
+  ACO: {
+    name: 'Análise do Comportamento',
+    desc: 'Você é alguém que pensa em termos de contexto e função — não o que a pessoa sente por dentro, mas o que ela faz e em que condições. Você tem aversão ao que não pode ser descrito com precisão, e acredita que a mudança real vem de modificar as contingências que mantêm um comportamento. Você provavelmente tem curiosidade científica aguçada e um ceticismo saudável em relação a explicações que não passam pelo rigor da análise funcional.',
+    authors: 'B. F. Skinner · Maria Martha Hübner',
+    books: [
+      { title: 'Ciência e Comportamento Humano', author: 'Skinner' },
+      { title: 'Análise do Comportamento: investigações históricas, conceituais e aplicadas', author: 'Tourinho & Luna' }
+    ]
+  },
+  GES: {
+    name: 'Gestalt-Terapia',
+    desc: 'Você é alguém que vive no presente — que acredita que o momento da sessão é em si mesmo o campo onde a mudança acontece. Você tem atenção aguçada para o que está acontecendo aqui e agora: o gesto que contradiz as palavras, a respiração que prende, o tema que fica inacabado. Para você, o contato genuíno entre duas pessoas já é terapêutico, e ampliar a consciência do que está vivo no momento presente é o caminho, não apenas o meio.',
+    authors: 'Fritz Perls · Laura Perls',
+    books: [
+      { title: 'Gestalt-Terapia Explicada', author: 'Perls' },
+      { title: 'O Processo Criativo em Gestalt-Terapia', author: 'Zinker' }
+    ]
+  },
+  ACP: {
+    name: 'Abordagem Centrada na Pessoa',
+    desc: 'Você é alguém que confia profundamente na capacidade do outro de encontrar o seu próprio caminho — desde que encontre as condições certas para isso. Você acredita que grande parte do sofrimento vem da distância entre quem a pessoa é de verdade e quem ela aprendeu que deveria ser para ser amada. O que você oferece não é orientação nem análise — é presença. Empatia real, sem disfarce. Uma aceitação que não negocia.',
+    authors: 'Carl Rogers · Natalie Rogers',
+    books: [
+      { title: 'Tornar-se Pessoa', author: 'Rogers' },
+      { title: 'Por uma Psicologia Humana', author: 'Amatuzzi' }
+    ]
+  },
+  FEN: {
+    name: 'Fenomenologia / Existencial',
+    desc: 'Você é alguém que não se contenta com respostas prontas — você quer compreender o que significa existir para aquela pessoa específica, naquele momento específico. Você tem uma inclinação filosófica natural: as questões da finitude, do sentido, da liberdade e da responsabilidade não te assustam, pelo contrário, te parecem as perguntas mais honestas que a psicologia pode fazer. Para você, a terapia é menos sobre técnica e mais sobre o encontro autêntico com o outro.',
+    authors: 'Viktor Frankl · Irvin Yalom',
+    books: [
+      { title: 'Em Busca de Sentido', author: 'Frankl' },
+      { title: 'Psicoterapia Existencial', author: 'Yalom' }
+    ]
+  },
+  PHC: {
+    name: 'Psicologia Histórico-Cultural',
+    desc: 'Você é alguém que não consegue pensar o indivíduo sem pensar o contexto — a família, a classe, a história, a cultura. Para você, o sofrimento psicológico raramente é apenas pessoal: ele carrega marcas de condições objetivas de vida que precisam ser nomeadas. Você provavelmente tem um interesse genuíno pela dimensão social e política da psicologia, e acredita que uma prática ética não pode ignorar as desigualdades que produzem adoecimento.',
+    authors: 'Lev Vygotsky · Silvia Lane',
+    books: [
+      { title: 'A Formação Social da Mente', author: 'Vygotsky' },
+      { title: 'Psicologia Social: o homem em movimento', author: 'Lane & Codo' }
+    ]
+  }
+};
+
+// ─── ESTADO ───────────────────────────────────────────────────────────────────
+let phase = 1;           // 1 = Fase 1, 2 = Desempatadora, 3 = Fase 2
+let p1Idx = 0;           // índice dentro da Fase 1 (0-9)
+let p1Scores = { P:0, C:0, H:0, S:0 };
+let tiebreakerDone = false;
+let branch = null;       // 'P','C','H' — definido após Fase 1
+let p2Idx = 0;           // índice dentro da Fase 2
+let p2Scores = {};       // { approachKey: count }
+let currentOpts = [];    // opções da questão atual
+let pickedKey = null;    // chave escolhida na questão atual
+let advanceTimer = null;
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function totalQuestions() {
+  // Fase 1: 10; Desempatadora: 0 ou 1; Fase 2: varia por branch
+  const p2len = branch ? PHASE2_BRANCHES[branch]?.questions.length ?? 0 : 0;
+  return 10 + (tiebreakerDone ? 1 : 0) + p2len;
+}
+
+function currentGlobalIdx() {
+  if (phase === 1) return p1Idx;
+  if (phase === 2) return 10;
+  return 10 + (tiebreakerDone ? 1 : 0) + p2Idx;
+}
+
+function updateProgress() {
+  const total = totalQuestions();
+  const curr  = currentGlobalIdx();
+  const pct   = total > 0 ? (curr / total) * 100 : 0;
+  document.getElementById('prog-fill').style.width = pct + '%';
+
+  let label = '';
+  if (phase === 1) {
+    label = `Fase 1 · ${p1Idx + 1} / 10`;
+  } else if (phase === 2) {
+    label = 'Desempatadora';
+  } else {
+    const branchLabel = PHASE2_BRANCHES[branch]?.label ?? '';
+    const p2total = PHASE2_BRANCHES[branch]?.questions.length ?? 0;
+    label = `Fase 2 · ${branchLabel} · ${p2Idx + 1} / ${p2total}`;
+  }
+  document.getElementById('prog-label').textContent = label;
+  document.getElementById('prog-num').textContent = (curr + 1) + ' / ' + (total + 1 > total ? total : total);
+}
+
+// ─── RENDER QUESTÃO ──────────────────────────────────────────────────────────
+function renderQuestion(qObj) {
+  currentOpts = qObj.opts;
+  pickedKey   = null;
+
+  // Badge de fase
+  let badgeText = '';
+  if (phase === 1)      badgeText = 'Fase 1';
+  else if (phase === 2) badgeText = 'Questão de Desempate';
+  else                  badgeText = 'Fase 2 — ' + PHASE2_BRANCHES[branch].label;
+  document.getElementById('phase-badge').textContent = badgeText;
+
+  document.getElementById('q-text').textContent = qObj.q;
+
+  const ul = document.getElementById('opts-list');
+  ul.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  qObj.opts.forEach((opt, i) => {
+    const li  = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.setAttribute('type', 'button');
+    btn.dataset.key = opt.key;
+    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span><span>${opt.text}</span>`;
+    btn.addEventListener('click', () => pick(opt.key));
+    li.appendChild(btn);
+    ul.appendChild(li);
+  });
+
+  document.getElementById('btn-next').disabled = true;
+  document.getElementById('btn-back').disabled = (phase === 1 && p1Idx === 0);
+
+  updateProgress();
+}
+
+// ─── PICK ────────────────────────────────────────────────────────────────────
+function pick(key) {
+  if (advanceTimer !== null) { clearTimeout(advanceTimer); advanceTimer = null; }
+  pickedKey = key;
+
+  document.querySelectorAll('.opt-btn').forEach(b => {
+    b.classList.toggle('selected', b.dataset.key === key);
+  });
+  document.getElementById('btn-next').disabled = false;
+
+  advanceTimer = setTimeout(() => { advanceTimer = null; advance(); }, 380);
+}
+
+// ─── ADVANCE ─────────────────────────────────────────────────────────────────
+function advance() {
+  if (advanceTimer !== null) { clearTimeout(advanceTimer); advanceTimer = null; }
+  if (!pickedKey) return;
+
+  if (phase === 1) {
+    p1Scores[pickedKey] = (p1Scores[pickedKey] || 0) + 1;
+    if (p1Idx < 9) {
+      p1Idx++;
+      renderQuestion(PHASE1_Q[p1Idx]);
+    } else {
+      finishPhase1();
+    }
+  } else if (phase === 2) {
+    // desempatadora
+    p1Scores[pickedKey] = (p1Scores[pickedKey] || 0) + 1;
+    tiebreakerDone = true;
+    startPhase2();
+  } else {
+    // fase 2 real
+    p2Scores[pickedKey] = (p2Scores[pickedKey] || 0) + 1;
+    const branchQ = PHASE2_BRANCHES[branch].questions;
+    if (p2Idx < branchQ.length - 1) {
+      p2Idx++;
+      renderQuestion(branchQ[p2Idx]);
+    } else {
+      showResult();
+    }
+  }
+}
+
+// ─── VOLTAR ──────────────────────────────────────────────────────────────────
+function goBack() {
+  if (advanceTimer !== null) { clearTimeout(advanceTimer); advanceTimer = null; }
+
+  if (phase === 3 && p2Idx > 0) {
+    const lastKey = PHASE2_BRANCHES[branch].questions[p2Idx].opts.find(o =>
+      (p2Scores[o.key] ?? 0) > 0 && p2Idx > 0
+    );
+    // desfaz o score do passo anterior
+    const prevQ = PHASE2_BRANCHES[branch].questions[p2Idx];
+    // não temos histórico granular, então simplesmente voltamos sem desfazer o score
+    p2Idx--;
+    renderQuestion(PHASE2_BRANCHES[branch].questions[p2Idx]);
+  } else if (phase === 1 && p1Idx > 0) {
+    p1Idx--;
+    renderQuestion(PHASE1_Q[p1Idx]);
+  }
+}
+
+// ─── FIM FASE 1 ───────────────────────────────────────────────────────────────
+function finishPhase1() {
+  const sorted = Object.entries(p1Scores).sort((a, b) => b[1] - a[1]);
+  const top    = sorted[0][1];
+  const tied   = sorted.filter(([,v]) => v === top).map(([k]) => k);
+
+  if (tied.length > 1) {
+    // desempate
+    phase = 2;
+    renderQuestion(TIEBREAKER_Q);
+  } else {
+    branch = sorted[0][0];
+    startPhase2();
+  }
+}
+
+// ─── INÍCIO FASE 2 ────────────────────────────────────────────────────────────
+function startPhase2() {
+  // Re-calcular winner depois do desempate
+  const sorted = Object.entries(p1Scores).sort((a, b) => b[1] - a[1]);
+  const topTied = sorted.filter(([,v]) => v === sorted[0][1]).map(([k]) => k);
+  branch = topTied[0]; // toma o primeiro em caso de empate residual
+
+  if (branch === 'S') {
+    // PHC — resultado direto
+    showResult();
+    return;
+  }
+
+  if (!PHASE2_BRANCHES[branch]) {
+    showResult();
+    return;
+  }
+
+  phase = 3;
+  p2Idx = 0;
+  PHASE2_BRANCHES[branch].approaches.forEach(k => { p2Scores[k] = 0; });
+  renderQuestion(PHASE2_BRANCHES[branch].questions[0]);
+}
+
+// ─── RESULTADO ────────────────────────────────────────────────────────────────
+function showResult() {
+  document.getElementById('screen-quiz').classList.remove('active');
+  document.getElementById('screen-result').classList.add('active');
+
+  let winner;
+
+  if (branch === 'S') {
+    winner = 'PHC';
+  } else {
+    const sorted2 = Object.entries(p2Scores).sort((a, b) => b[1] - a[1]);
+    const top2    = sorted2[0][1];
+    const tied2   = sorted2.filter(([,v]) => v === top2).map(([k]) => k);
+    winner = tied2[0]; // em empate, pega o primeiro
+  }
+
+  const r = RESULTS[winner];
+
+  document.getElementById('res-label').textContent = 'Sua abordagem';
+  document.getElementById('res-name').textContent  = r.name;
+  document.getElementById('res-desc').textContent  = r.desc;
+  document.getElementById('res-authors').textContent = r.authors;
+
+  const booksList = document.getElementById('res-books');
+  booksList.innerHTML = '';
+  r.books.forEach(b => {
+    const span = document.createElement('span');
+    span.innerHTML = `<strong>${b.title}</strong> — ${b.author}`;
+    booksList.appendChild(span);
+  });
+
+  // Barras: Fase 2 (ou Fase 1 se PHC)
+  renderScoreBars(winner);
+}
+
+function renderScoreBars(winner) {
+  let scores;
+  if (branch === 'S') {
+    // Mostra scores da Fase 1 por macro-grupo
+    scores = Object.entries(p1Scores).map(([k, v]) => ({
+      name: { P:'Psicodinâmica', C:'Comportamental', H:'Humanista-Exist.', S:'Sociocultural' }[k],
+      val: v,
+      total: 10
+    }));
+  } else {
+    scores = PHASE2_BRANCHES[branch].approaches.map(k => ({
+      name: RESULTS[k].name,
+      val:  p2Scores[k] || 0,
+      total: PHASE2_BRANCHES[branch].questions.length
+    }));
+  }
+
+  const total = scores.reduce((a, b) => a + b.val, 0) || 1;
+  const percents = hammondPercents(scores.map(s => s.val), total);
+
+  scores.sort((a, b) => b.val - a.val);
+  const sorted = scores.map(s => s.name);
+
+  const wrap = document.getElementById('score-bars');
+  wrap.innerHTML = '';
+
+  scores.forEach((s, i) => {
+    const pct  = percents[i];
+    const rank = sorted.indexOf(s.name);
+
+    const row = document.createElement('div');
+    row.className = 'score-row';
+
+    const lbl = document.createElement('div');
+    lbl.className = 'sc-label';
+    lbl.textContent = s.name;
+
+    const track = document.createElement('div');
+    track.className = 'sc-track';
+    const fill = document.createElement('div');
+    fill.className = 'sc-fill rank-' + rank;
+    fill.style.width = '0%';
+    track.appendChild(fill);
+
+    const pctEl = document.createElement('div');
+    pctEl.className = 'sc-pct';
+    pctEl.textContent = pct + '%';
+
+    row.appendChild(lbl);
+    row.appendChild(track);
+    row.appendChild(pctEl);
+    wrap.appendChild(row);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => { fill.style.width = pct + '%'; });
+    });
+  });
+}
+
+function hammondPercents(vals, total) {
+  if (total === 0) return vals.map(() => 0);
+  const raw     = vals.map(v => (v / total) * 100);
+  const floored = raw.map(Math.floor);
+  let rem       = 100 - floored.reduce((a, b) => a + b, 0);
+  const order   = raw.map((v, i) => ({ i, r: v - Math.floor(v) })).sort((a, b) => b.r - a.r);
+  for (let j = 0; j < rem; j++) floored[order[j].i]++;
+  return floored;
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+function startQuiz() {
+  phase = 1; p1Idx = 0;
+  p1Scores = { P:0, C:0, H:0, S:0 };
+  tiebreakerDone = false; branch = null;
+  p2Idx = 0; p2Scores = {}; pickedKey = null;
+  if (advanceTimer !== null) { clearTimeout(advanceTimer); advanceTimer = null; }
+
+  document.getElementById('screen-intro').classList.remove('active');
+  document.getElementById('screen-result').classList.remove('active');
+  document.getElementById('screen-quiz').classList.add('active');
+
+  renderQuestion(PHASE1_Q[0]);
+}
+
+function restart() {
+  if (advanceTimer !== null) { clearTimeout(advanceTimer); advanceTimer = null; }
+  document.getElementById('screen-result').classList.remove('active');
+  document.getElementById('screen-intro').classList.add('active');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('btn-start').addEventListener('click', startQuiz);
+  document.getElementById('btn-restart').addEventListener('click', restart);
+  document.getElementById('btn-next').addEventListener('click', () => {
+    if (advanceTimer !== null) { clearTimeout(advanceTimer); advanceTimer = null; }
+    advance();
+  });
+  document.getElementById('btn-back').addEventListener('click', goBack);
+});
+</script>
+
+</head>
+<body>
+<div class="container">
+
+  <header class="quiz-header">
+    <div class="eyebrow">Orientação Profissional · Psicologia</div>
+    <h1>Qual abordagem psicológica combina com você?</h1>
+  </header>
+
+  <!-- TELA 1: INTRO -->
+  <section id="screen-intro" class="screen active">
+    <div class="intro-card">
+      <p>Este instrumento foi criado para ajudar estudantes de psicologia a identificar com qual abordagem teórica eles têm maior afinidade natural.</p>
+      <p>O quiz tem duas fases. Na primeira, você responde a situações do cotidiano clínico sem precisar conhecer nenhuma abordagem específica. Na segunda, as perguntas se aprofundam de acordo com o seu perfil.</p>
+      <p class="intro-note">Não há respostas certas ou erradas. Escolha a opção que mais ressoa com a sua intuição, não com o que você acha que "deveria" responder.</p>
+      <div class="chips">
+        <span class="chip">Psicanálise</span>
+        <span class="chip">Psicologia Analítica</span>
+        <span class="chip">TCC</span>
+        <span class="chip">Análise do Comportamento</span>
+        <span class="chip">Gestalt-Terapia</span>
+        <span class="chip">Ab. Centrada na Pessoa</span>
+        <span class="chip">Fenomenologia / Existencial</span>
+        <span class="chip">Histórico-Cultural</span>
+      </div>
+      <button id="btn-start" class="btn btn-primary btn-lg">Começar</button>
+    </div>
+  </section>
+
+  <!-- TELA 2: QUESTÕES -->
+  <section id="screen-quiz" class="screen">
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span id="prog-label"></span>
+        <span id="prog-num"></span>
+      </div>
+      <div class="progress-track">
+        <div id="prog-fill" class="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <div id="phase-badge" class="phase-badge"></div>
+      <div id="q-text" class="q-text"></div>
+      <ul id="opts-list" class="options-list"></ul>
+      <div class="nav-row">
+        <button id="btn-back" class="btn btn-ghost">← Voltar</button>
+        <button id="btn-next" class="btn btn-primary" disabled>Próxima →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELA 3: RESULTADO -->
+  <section id="screen-result" class="screen">
+    <div class="result-hero">
+      <div id="res-label" class="res-label"></div>
+      <div id="res-name" class="res-name"></div>
+      <p id="res-desc" class="res-desc"></p>
+      <div class="res-ref-block">
+        <div class="res-ref-label">Referências para começar</div>
+        <div class="res-ref-row">
+          <span><strong>Autores fundadores:</strong> <span id="res-authors"></span></span>
+          <div id="res-books" class="res-ref-row" style="margin-top:8px"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scores-card">
+      <h2>Seu perfil nesta fase</h2>
+      <div id="score-bars" class="score-bars"></div>
+    </div>
+
+    <div class="disclaimer">
+      Este instrumento é exploratório e tem finalidade pedagógica. A afinidade com uma abordagem não é fixa — ela se transforma ao longo da formação, da prática clínica e das experiências pessoais. Use este resultado como ponto de partida para aprofundar seu autoconhecimento profissional.
+    </div>
+
+    <div style="text-align:center">
+      <button id="btn-restart" class="btn btn-ghost">Refazer o quiz</button>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
+
+</body></html>

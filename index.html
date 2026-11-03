@@ -946,12 +946,19 @@ function shareCard() {
   ctx.font = 'bold 34px Arial, sans-serif';
   ctx.fillText('Faça o quiz de abordagem psicológica', W/2, H - 92);
 
-  // Download via capability
+  // Download: tenta capability nativa; se indisponível, abre em nova aba
   cv.toBlob(async blob => {
     const dl = await window.claude.use('downloads');
     if (dl) {
-      try { await dl.save({ filename: 'meu-perfil-psi.png', data: blob }); }
-      catch (e) { console.error('Erro ao salvar:', e); }
+      try { await dl.save({ filename: 'meu-perfil-psi.png', data: blob }); return; }
+      catch (e) { /* cai no fallback */ }
+    }
+    // Fallback: abre a imagem em nova aba para salvar manualmente
+    const dataUrl = cv.toDataURL('image/png');
+    const w = window.open('', '_blank');
+    if (w) {
+      w.document.write('<html><body style="margin:0;background:#000"><img src="' + dataUrl + '" style="max-width:100%;display:block;margin:auto"><p style="color:#fff;text-align:center;font-family:sans-serif;font-size:13px;padding:8px">Clique com o botão direito na imagem → Salvar imagem como</p></body></html>');
+      w.document.close();
     }
   }, 'image/png');
 }

@@ -135,6 +135,11 @@ body {
 .btn-ghost { background: transparent; color: var(--muted); border: 1.5px solid var(--border); }
 .btn-ghost:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
 .btn-lg { font-size: 1rem; padding: 14px 30px; }
+.btn-share {
+  background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+  color: #fff;
+}
+.btn-share:hover:not(:disabled) { opacity: 0.88; }
 
 /* Result */
 .result-hero {
@@ -559,6 +564,7 @@ let p2Scores = {};       // { approachKey: count }
 let currentOpts = [];    // opções da questão atual
 let pickedKey = null;    // chave escolhida na questão atual
 let advanceTimer = null;
+let currentWinner = null;
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 function totalQuestions() {
@@ -747,6 +753,7 @@ function showResult() {
     winner = tied2[0]; // em empate, pega o primeiro
   }
 
+  currentWinner = winner;
   const r = RESULTS[winner];
 
   document.getElementById('res-label').textContent = 'Sua abordagem';
@@ -783,18 +790,18 @@ function renderScoreBars(winner) {
     }));
   }
 
-  const total = scores.reduce((a, b) => a + b.val, 0) || 1;
-  const percents = hammondPercents(scores.map(s => s.val), total);
-
+  // Ordena ANTES de calcular os percentuais, para que percents[i] corresponda a scores[i]
   scores.sort((a, b) => b.val - a.val);
-  const sorted = scores.map(s => s.name);
+
+  const total = scores.reduce((a, s) => a + s.val, 0) || 1;
+  const percents = hammondPercents(scores.map(s => s.val), total);
 
   const wrap = document.getElementById('score-bars');
   wrap.innerHTML = '';
 
   scores.forEach((s, i) => {
     const pct  = percents[i];
-    const rank = sorted.indexOf(s.name);
+    const rank = i; // posição no array já ordenado
 
     const row = document.createElement('div');
     row.className = 'score-row';
@@ -823,6 +830,130 @@ function renderScoreBars(winner) {
       requestAnimationFrame(() => { fill.style.width = pct + '%'; });
     });
   });
+}
+
+// ─── CARD PARA STORIES ────────────────────────────────────────────────────────
+function splitCanvasLines(ctx, text, maxWidth) {
+  const words = text.split(' ');
+  const lines = [];
+  let line = '';
+  for (const word of words) {
+    const test = line ? line + ' ' + word : word;
+    if (ctx.measureText(test).width > maxWidth && line) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = test;
+    }
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+function shareCard() {
+  if (!currentWinner) return;
+  const r = RESULTS[currentWinner];
+
+  const W = 1080, H = 1920;
+  const cv = document.createElement('canvas');
+  cv.width = W; cv.height = H;
+  const ctx = cv.getContext('2d');
+
+  // Fundo escuro
+  ctx.fillStyle = '#0D1117';
+  ctx.fillRect(0, 0, W, H);
+
+  // Gradiente de topo
+  const g1 = ctx.createLinearGradient(0, 0, 0, 900);
+  g1.addColorStop(0, 'rgba(59,79,192,0.18)');
+  g1.addColorStop(1, 'rgba(59,79,192,0)');
+  ctx.fillStyle = g1; ctx.fillRect(0, 0, W, 900);
+
+  // Barra de destaque lateral
+  ctx.fillStyle = '#3B4FC0';
+  ctx.fillRect(80, 158, 5, 200);
+
+  // Eyebrow
+  ctx.fillStyle = '#6B7FE0';
+  ctx.font = 'bold 28px Arial, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('PERFIL DE ABORDAGEM PSICOLÓGICA', 108, 198);
+  ctx.fillStyle = '#3D4A63';
+  ctx.font = '400 26px Arial, sans-serif';
+  ctx.fillText('Orientação Profissional · Psicologia', 108, 244);
+
+  // Divisor
+  ctx.strokeStyle = '#1A2236';
+  ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(80, 292); ctx.lineTo(W - 80, 292); ctx.stroke();
+
+  // Nome da abordagem
+  ctx.fillStyle = '#E5E8F0';
+  ctx.font = 'italic bold 102px Georgia, serif';
+  const nameLines = splitCanvasLines(ctx, r.name, W - 200);
+  let ny = 420;
+  nameLines.forEach(line => { ctx.fillText(line, 80, ny); ny += 124; });
+
+  // Trecho do texto (primeira frase)
+  const rawDesc = r.desc.split('. ')[0] + '.';
+  const descText = rawDesc.length > 210
+    ? rawDesc.slice(0, rawDesc.lastIndexOf(' ', 210)) + '...'
+    : rawDesc;
+  ctx.fillStyle = '#7A8499';
+  ctx.font = '300 46px Arial, sans-serif';
+  const descLines = splitCanvasLines(ctx, descText, W - 200);
+  let dy = Math.max(ny + 44, 720);
+  descLines.forEach(line => { ctx.fillText(line, 80, dy); dy += 70; });
+
+  // Separador com ponto central
+  const sepY = Math.max(dy + 90, 1310);
+  ctx.strokeStyle = '#1A2236';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(80, sepY); ctx.lineTo(W/2 - 26, sepY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(W/2 + 26, sepY); ctx.lineTo(W - 80, sepY); ctx.stroke();
+  ctx.fillStyle = '#3B4FC0';
+  ctx.beginPath(); ctx.arc(W/2, sepY, 6, 0, Math.PI * 2); ctx.fill();
+
+  // Autores
+  const aY = sepY + 72;
+  ctx.fillStyle = '#3D4A63';
+  ctx.font = 'bold 26px Arial, sans-serif';
+  ctx.fillText('AUTORES FUNDADORES', 80, aY);
+  ctx.fillStyle = '#C8D0E4';
+  ctx.font = '500 50px Georgia, serif';
+  ctx.fillText(r.authors, 80, aY + 70);
+
+  // Leituras
+  ctx.fillStyle = '#4A5568';
+  ctx.font = '400 34px Arial, sans-serif';
+  let by = aY + 144;
+  r.books.forEach(b => {
+    ctx.fillText(b.title + '  ·  ' + b.author, 80, by);
+    by += 54;
+  });
+
+  // Rodapé com gradiente
+  const fGrad = ctx.createLinearGradient(0, H - 330, 0, H);
+  fGrad.addColorStop(0, 'rgba(59,79,192,0)');
+  fGrad.addColorStop(1, 'rgba(59,79,192,0.22)');
+  ctx.fillStyle = fGrad; ctx.fillRect(0, H - 330, W, 330);
+
+  ctx.fillStyle = '#E5E8F0';
+  ctx.font = 'italic bold 46px Georgia, serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Qual abordagem combina com você?', W/2, H - 152);
+  ctx.fillStyle = '#6B7FE0';
+  ctx.font = 'bold 34px Arial, sans-serif';
+  ctx.fillText('Faça o quiz de abordagem psicológica', W/2, H - 92);
+
+  // Download via capability
+  cv.toBlob(async blob => {
+    const dl = await window.claude.use('downloads');
+    if (dl) {
+      try { await dl.save({ filename: 'meu-perfil-psi.png', data: blob }); }
+      catch (e) { console.error('Erro ao salvar:', e); }
+    }
+  }, 'image/png');
 }
 
 function hammondPercents(vals, total) {
@@ -859,6 +990,7 @@ function restart() {
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-start').addEventListener('click', startQuiz);
   document.getElementById('btn-restart').addEventListener('click', restart);
+  document.getElementById('btn-share').addEventListener('click', shareCard);
   document.getElementById('btn-next').addEventListener('click', () => {
     if (advanceTimer !== null) { clearTimeout(advanceTimer); advanceTimer = null; }
     advance();
@@ -943,7 +1075,8 @@ window.addEventListener('DOMContentLoaded', () => {
       Este instrumento é exploratório e tem finalidade pedagógica. A afinidade com uma abordagem não é fixa — ela se transforma ao longo da formação, da prática clínica e das experiências pessoais. Use este resultado como ponto de partida para aprofundar seu autoconhecimento profissional.
     </div>
 
-    <div style="text-align:center">
+    <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px">
+      <button id="btn-share" class="btn btn-share btn-lg">📲 Compartilhar resultado</button>
       <button id="btn-restart" class="btn btn-ghost">Refazer o quiz</button>
     </div>
   </section>

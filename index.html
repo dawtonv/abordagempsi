@@ -364,42 +364,71 @@ const PHASE2_BRANCHES = {
     ]
   },
   C: {
-    label: "Comportamental",
-    approaches: ['TCC','ACO'],
+    label: "Comportamental/Cognitiva",
+    approaches: ['TCC','ACO','ESQ'],
     questions: [
       {
         q: "Quando alguém mantém um comportamento que a prejudica, o que você acha mais importante investigar?",
         opts: [
-          { key:'TCC', text:"Os pensamentos e crenças por trás desse comportamento — o que a pessoa interpreta e acredita sobre si mesma e o mundo." },
-          { key:'ACO', text:"As consequências que esse comportamento produz — o que acontece depois que ele ocorre e por que continua sendo emitido." }
+          { key:'TCC', text:"Os pensamentos e crenças por trás — o que a pessoa interpreta e acredita sobre si mesma e o mundo." },
+          { key:'ACO', text:"As consequências que esse comportamento produz — o que acontece depois que ele ocorre e por que continua sendo emitido." },
+          { key:'ESQ', text:"Os padrões emocionais profundos que esse comportamento serve — que necessidade não atendida ele tenta compensar." }
         ]
       },
       {
-        q: "Como você tende a ver pensamentos e emoções no contexto terapêutico?",
+        q: "Como você pensa sobre a infância no contexto terapêutico?",
         opts: [
-          { key:'ACO', text:"Como comportamentos como quaisquer outros — sujeitos às mesmas leis de aprendizagem que regulam qualquer resposta ao ambiente." },
-          { key:'TCC', text:"Como elementos centrais da mudança — é preciso trabalhar com o que a pessoa pensa e sente para que o comportamento mude de forma consistente." }
+          { key:'ACO', text:"Como parte da história de aprendizagem — mas o foco é o presente: o que mantém o comportamento hoje." },
+          { key:'TCC', text:"Como origem possível de crenças centrais — que podem ser identificadas e trabalhadas no aqui e agora." },
+          { key:'ESQ', text:"Como o lugar onde os esquemas foram formados — e onde busco as raízes do sofrimento que se repete até hoje." }
         ]
       },
       {
         q: "O que mais te interessa no trabalho clínico?",
         opts: [
-          { key:'TCC', text:"Identificar padrões de pensamento disfuncional e ajudar o cliente a construir interpretações mais realistas e funcionais das situações." },
-          { key:'ACO', text:"Mapear as condições ambientais que antecedem e seguem o comportamento-problema — e modificar essas condições." }
+          { key:'TCC', text:"Identificar padrões de pensamento disfuncional e ajudar o cliente a construir interpretações mais realistas." },
+          { key:'ACO', text:"Mapear as condições ambientais que antecedem e seguem o comportamento-problema — e modificar essas condições." },
+          { key:'ESQ', text:"Trabalhar com as memórias e emoções da infância que ainda estão vivas no presente — e com os modos que a pessoa assume para lidar com elas." }
         ]
       },
       {
-        q: "Como você vê o papel das crenças no sofrimento psicológico?",
+        q: "Como você vê o papel da relação terapêutica?",
         opts: [
-          { key:'ACO', text:"São comportamentos verbais — têm função no repertório da pessoa, mas não precisam ser tratados como causas internas separadas do comportamento observável." },
-          { key:'TCC', text:"São centrais — o modo como a pessoa interpreta as situações determina em grande parte como ela se sente e como age." }
+          { key:'ACO', text:"Como parte do ambiente que pode ser analisada funcionalmente — mas não é o foco central do trabalho." },
+          { key:'TCC', text:"Como um contexto colaborativo — terapeuta e cliente trabalham juntos na identificação e modificação de padrões." },
+          { key:'ESQ', text:"Como um instrumento terapêutico central — a reparentagem limitada e a qualidade do vínculo são parte do próprio tratamento." }
         ]
       },
       {
-        q: "Quando você pensa em ajudar alguém a lidar com ansiedade, o que faz mais sentido?",
+        q: "Quando você pensa em sofrimento crônico — alguém que sempre se sente inadequado, sempre se sabota — o que mais faz sentido para você?",
         opts: [
-          { key:'TCC', text:"Trabalhar as interpretações catastróficas — ajudar a pessoa a questionar os pensamentos que alimentam e mantêm a ansiedade." },
-          { key:'ACO', text:"Analisar em que situações a ansiedade aparece, o que a mantém, e expor gradualmente a pessoa às situações que ela evita." }
+          { key:'TCC', text:"São crenças centrais disfuncionais que se formaram e que a terapia pode ajudar a identificar e modificar." },
+          { key:'ACO', text:"São padrões que foram reforçados ao longo da história e que respondem às contingências presentes." },
+          { key:'ESQ', text:"São esquemas desadaptativos precoces — estruturas emocionais profundas formadas em experiências de necessidades não atendidas." }
+        ]
+      },
+      {
+        q: "Que tipo de técnica te parece mais natural no trabalho clínico?",
+        opts: [
+          { key:'ESQ', text:"Técnicas experienciais — trabalho com imagens mentais, cadeira vazia, diálogos internos entre os modos." },
+          { key:'TCC', text:"Técnicas cognitivas — registros de pensamento, questionamento socrático, reestruturação de crenças." },
+          { key:'ACO', text:"Técnicas comportamentais — exposição, modelagem, análise funcional detalhada do comportamento." }
+        ]
+      },
+      {
+        q: "Como você pensa sobre emoção na clínica?",
+        opts: [
+          { key:'ACO', text:"Como comportamentos respondentes — reações aprendidas que seguem as mesmas leis do comportamento operante." },
+          { key:'TCC', text:"Como resultado das interpretações — trabalhar o pensamento é a via mais eficaz para mudar como a pessoa sente." },
+          { key:'ESQ', text:"Como o dado mais importante — especialmente as emoções ligadas às necessidades básicas não atendidas na infância." }
+        ]
+      },
+      {
+        q: "Qual seria sua abordagem para trabalhar com alguém que sabe o que precisa mudar mas não consegue?",
+        opts: [
+          { key:'TCC', text:"Investigar os pensamentos automáticos e crenças que bloqueiam a mudança — e trabalhar com técnicas cognitivas para modificá-los." },
+          { key:'ACO', text:"Analisar o que mantém o comportamento atual — identificar as contingências que reforçam a manutenção do padrão." },
+          { key:'ESQ', text:"Explorar o esquema e o modo que estão operando — e trabalhar o material emocional e relacional que está por trás da resistência." }
         ]
       }
     ]
@@ -513,6 +542,15 @@ const RESULTS = {
     books: [
       { title: 'Ciência e Comportamento Humano', author: 'Skinner' },
       { title: 'Análise do Comportamento: investigações históricas, conceituais e aplicadas', author: 'Tourinho & Luna' }
+    ]
+  },
+  ESQ: {
+    name: 'Terapia do Esquema',
+    desc: 'Você é alguém que não consegue olhar para o sofrimento de uma pessoa sem querer entender de onde ele vem. Os padrões que se repetem na vida — os relacionamentos que sempre terminam do mesmo jeito, as autossabotagens, a sensação de nunca ser suficiente — te parecem ter raízes mais profundas do que uma crença disfuncional ou um comportamento aprendido. Você tem interesse tanto pelo trabalho emocional e vivencial quanto por ferramentas estruturadas, e acredita que a relação terapêutica em si pode ser um instrumento de reparação.',
+    authors: 'Jeffrey Young · Ida Kublikowski',
+    books: [
+      { title: 'Reinvente sua Vida', author: 'Young & Klosko' },
+      { title: 'Terapia do Esquema: guia de técnicas cognitivas, comportamentais e experienciais', author: 'Young, Klosko & Weishaar' }
     ]
   },
   GES: {
@@ -1026,6 +1064,7 @@ window.addEventListener('DOMContentLoaded', () => {
         <span class="chip">Psicologia Analítica</span>
         <span class="chip">TCC</span>
         <span class="chip">Análise do Comportamento</span>
+        <span class="chip">Terapia do Esquema</span>
         <span class="chip">Gestalt-Terapia</span>
         <span class="chip">Ab. Centrada na Pessoa</span>
         <span class="chip">Fenomenologia / Existencial</span>
